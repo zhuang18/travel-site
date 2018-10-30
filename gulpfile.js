@@ -19,8 +19,8 @@ gulp.task('html',function(done){
 gulp.task('styles',function(){
     return gulp.src('./app/assets/styles/style.css')
         .pipe(postcss([cssImport, cssvars, nested, autoprefixer]))
-        .pipe(gulp.dest('./app/temp/styles'));
-    
+        .pipe(gulp.dest('./app/temp/styles'))
+        .pipe(browserSync.stream())
 });
 
 gulp.task('watch', function() {
@@ -36,12 +36,5 @@ gulp.task('watch', function() {
         done();
     });
 
-
-    gulp.watch('./app/assets/styles/**/*.css',gulp.series('cssInject')); 
+    gulp.watch('./app/assets/styles/**/*.css', {}, gulp.series('styles'));
 })
-
-
-gulp.task('cssInject', gulp.series('styles'), function() {
-    return gulp.src('./app/temp/styles/style.css')
-        .pipe(browserSync.stream());
-});
