@@ -9,10 +9,14 @@ gulp.task('watch', function() {
         }
     })
 
-    gulp.watch('./app/index.html',function(done){
+    gulp.watch('./app/index.html',function(){
         browserSync.reload();
-        done();
     });
 
-    gulp.watch('./app/assets/styles/**/*.css', {}, gulp.series('styles'));
+    gulp.watch('./app/assets/styles/**/*.css', ['cssInject']);
 })
+
+gulp.task('cssInject', ['styles'], function() {
+    return gulp.src('./app/temp/styles/style.css')
+        .pipe(browserSync.stream());
+});

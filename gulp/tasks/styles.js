@@ -9,6 +9,9 @@ var gulp = require('gulp'),
 gulp.task('styles',function(){
     return gulp.src('./app/assets/styles/style.css')
         .pipe(postcss([cssImport, cssvars, nested, autoprefixer]))
+        .on('error', function(errorMessage) {
+            console.log(errorMessage.toString());
+            this.emit('end');
+        })
         .pipe(gulp.dest('./app/temp/styles'))
-        .pipe(browserSync.stream())
 });
