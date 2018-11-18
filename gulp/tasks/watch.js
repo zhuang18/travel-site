@@ -13,8 +13,8 @@ gulp.task('watch', function() {
         browserSync.reload();
     });
 
-    gulp.watch('./app/assets/styles/**/*.css', gulp.parallel('cssInject'));
-    
+    gulp.watch('./app/assets/styles/**/*.css', ['cssInject']);
+
 })
 
 gulp.task('cssInject', ['styles'], function() {
